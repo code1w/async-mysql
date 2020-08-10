@@ -13,8 +13,10 @@
 
 #ifdef _WIN32
 #include <Winsock2.h>
+typedef SOCKET fd_t;
 #else
 #include <sys/select.h>
+typedef int fd_t;
 #endif /* _WIN32 */
 
 typedef struct mysql_context_s {
@@ -42,14 +44,6 @@ int hand_times = 0;
 
 // ========================================================
 // select 
-
-#ifdef _WIN32
-typedef SOCKET fd_t;
-#define __TACOPIE_INVALID_FD INVALID_SOCKET
-#else
-typedef int fd_t;
-#define __TACOPIE_INVALID_FD -1
-#endif /* _WIN32 */
 
 fd_set m_rd_set;
 fd_set m_wr_set;
