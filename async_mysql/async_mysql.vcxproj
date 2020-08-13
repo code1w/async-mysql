@@ -146,7 +146,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mysql_db.cpp" />
+    <ClCompile Include="mysql_io_service.cpp" />
+    <ClCompile Include="mysql_result.cpp" />
+    <ClCompile Include="mysql_result_field.cpp" />
+    <ClCompile Include="mysql_result_row.cpp" />
     <ClCompile Include="poll_uv.cpp" />
+    <ClCompile Include="self_pipe.cpp" />
+    <ClCompile Include="thread_worker_impl.cpp" />
+    <ClCompile Include="worker.cpp" />
+    <ClCompile Include="worker_impl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="deferred.h" />
+    <ClInclude Include="dll_export.h" />
+    <ClInclude Include="mysql_cached_statement.h" />
+    <ClInclude Include="mysql_db.h" />
+    <ClInclude Include="mysql_deferred.h" />
+    <ClInclude Include="mysql_io_service.h" />
+    <ClInclude Include="mysql_local_parameter.h" />
+    <ClInclude Include="mysql_parameter.h" />
+    <ClInclude Include="mysql_query_result_field_impl.h" />
+    <ClInclude Include="mysql_query_result_impl.h" />
+    <ClInclude Include="mysql_result.h" />
+    <ClInclude Include="mysql_result_field.h" />
+    <ClInclude Include="mysql_result_field_impl.h" />
+    <ClInclude Include="mysql_result_impl.h" />
+    <ClInclude Include="mysql_result_row.h" />
+    <ClInclude Include="self_pipe.h" />
+    <ClInclude Include="thread_worker_impl.h" />
+    <ClInclude Include="typedefs.h" />
+    <ClInclude Include="worker.h" />
+    <ClInclude Include="worker_impl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

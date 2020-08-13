@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.1)
+project(gamesh_mysql_ioc CXX)
+direct_use_vcpkg()
+
+file(GLOB_RECURSE ALL_FILES *.h *.cpp *.cc)
+filterList(PROJ_FILES ^${CMAKE_CURRENT_SOURCE_DIR}/tests EXCLUDE ${ALL_FILES})
+source_group_by_dir("${PROJ_FILES}")
+
+add_definitions(-DGAMESH_MYSQL_IOC_DLL_EXPORT)
+add_library(gamesh_mysql_ioc SHARED ${PROJ_FILES})
+proj_directory(gamesh_mysql_ioc)
+add_dependencies(gamesh_mysql_ioc gamesh common)
+if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+target_link_libraries(gamesh_mysql_ioc ${COMMON_LIBS} gamesh libgo common mariadb mariadbclient)
+else()
+target_link_libraries(gamesh_mysql_ioc ${COMMON_LIBS} gamesh libgo common libmariadb mariadbclient)
+endif()
+add_subdirectory(tests)

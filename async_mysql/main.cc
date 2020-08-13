@@ -1,3 +1,4 @@
+#include <gtest/gtest.h>
 
 #ifdef _WIN32
 #include <WinSock2.h>
@@ -11,10 +12,10 @@
 #include <chrono>
 #include <thread>
 #include <mysql/mysql.h>
-#include "mysql_io_service.h"
-#include "mysql_db.h"
-#include "mysql_result.h"
-#include "mysql_result_row.h"
+#include "gamesh_mysql_ioc/mysql_io_service.h"
+#include "gamesh_mysql_ioc/mysql_db.h"
+#include "gamesh_mysql_ioc/mysql_result.h"
+#include "gamesh_mysql_ioc/mysql_result_row.h"
 
 
 void mysql_read_result(MYSQL* m) {
@@ -64,7 +65,7 @@ int main(int argc, char* argv[])
 	myslq_host = "172.17.0.13";
 #endif 
 
-	// æµ‹è¯•ç½‘ç»œé©±åŠ¨
+	// ²âÊÔÍøÂçÇý¶¯
     gamesh::mysql::MysqlIOService* loop = new gamesh::mysql::MysqlIOService(1);
 	MYSQL* mysql = mysql_init(nullptr);
 	MYSQL* ret = mysql_real_connect(mysql, myslq_host.c_str(), "root","123456","gamesh_zxb",3306,nullptr,0);
@@ -77,7 +78,7 @@ int main(int argc, char* argv[])
 	//loop->Track(mysql->net.fd, mysql, readcb, nullptr);
 
 
-	// æµ‹è¯•myslqæŸ¥è¯¢å™¨
+	// ²âÊÔmyslq²éÑ¯Æ÷
 	gamesh::mysql::MysqlDB* db = new gamesh::mysql::MysqlDB(loop);
 	db->syncConnect(myslq_host, "root","123456","gamesh_zxb",3306);
 	

@@ -1,0 +1,12 @@
+#pragma once
+
+#ifndef GAMESH_MYSQL_IOC_DLL_CLASS_DECL
+#define GAMESH_MYSQL_IOC_DLL_CLASS_DECL
+#endif 
+
+#ifndef GAMESH_MYSQL_IOC_DLL_DECL
+#define GAMESH_MYSQL_IOC_DLL_DECL
+#endif 
+
+
+
