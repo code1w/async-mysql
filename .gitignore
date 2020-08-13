@@ -1,0 +1,7 @@
+.vs
+x64
+async_mysql/x64
+
+CMakeSettings.json
+out
+
