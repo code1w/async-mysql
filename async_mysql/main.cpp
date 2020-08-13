@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 		});
 		*/
 		//query("select * from bag;", mysql);
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     //::testing::InitGoogleTest(&argc, argv);
     //return RUN_ALL_TESTS();
