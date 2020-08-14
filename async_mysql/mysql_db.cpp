@@ -166,7 +166,7 @@ namespace gamesh { namespace mysql {
             }
         };
        
-        printf("Result Cb %p ",resultcb);
+        printf("Result Cb %p \n",resultcb);
 
         loop_->PostTask([this, query, deferred, resultcb]() {
             loop_->Track(mysql_->net.fd, mysql_, resultcb, nullptr);

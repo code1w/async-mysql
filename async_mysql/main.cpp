@@ -10,39 +10,12 @@
 #include <cstdio>
 #include <chrono>
 #include <thread>
+#include <cassert>
 #include <mysql/mysql.h>
 #include "mysql_io_service.h"
 #include "mysql_db.h"
 #include "mysql_result.h"
 #include "mysql_result_row.h"
-
-
-void mysql_read_result(MYSQL* m) {
-	if (0 == mysql_read_query_result(m)) {
-		MYSQL_RES *res = mysql_store_result(m);
-		MYSQL_ROW row;
-		int fields = mysql_num_fields(res);
-		while ((row = mysql_fetch_row(res)))
-		{
-			for (int i = 0; i < fields; i++)
-			{
-				printf("%s\t", row[i]);
-			}
-		}
-		std::thread::id tid = std::this_thread::get_id();
-		printf("a result for m->net.fd = %d  tid = %d \n", m->net.fd, tid);
-		mysql_free_result(res);
-	} else {
-		std::cout <<" mysql_read_query_result() failed for fd = "<< m->net.fd << " "<<mysql_error(m)<< ":"<<mysql_errno(m)<< std::endl;
-	}
-}
-
-void query(const std::string& sql,MYSQL *m)
-{
-	std::thread::id tid = std::this_thread::get_id();
-	auto ret = mysql_send_query(m, sql.c_str(), sql.size());
-	printf("query  mysql_send_query fd =  %d  tid =  %d \n", m->net.fd, tid);
-}
 
 int main(int argc, char* argv[])
 {
@@ -66,16 +39,6 @@ int main(int argc, char* argv[])
 
 	// 测试网络驱动
     gamesh::mysql::MysqlIOService* loop = new gamesh::mysql::MysqlIOService(1);
-	MYSQL* mysql = mysql_init(nullptr);
-	MYSQL* ret = mysql_real_connect(mysql, myslq_host.c_str(), "root","123456","gamesh_zxb",3306,nullptr,0);
-
-	auto readcb = [](void* ud) {
-		MYSQL* mysql = (MYSQL*)ud;
-		mysql_read_result(mysql);
-	};
-	
-	//loop->Track(mysql->net.fd, mysql, readcb, nullptr);
-
 
 	// 测试myslq查询器
 	gamesh::mysql::MysqlDB* db = new gamesh::mysql::MysqlDB(loop);
@@ -91,8 +54,6 @@ int main(int argc, char* argv[])
 #endif 
     while (true)
     {
-		db->query("select * from account");
-		/*
 		db->query("select * from account").onSuccess([](gamesh::mysql::Result&& result) {
 			assert(result.affectedRows() == 0);
 			for (auto row : result)
@@ -107,7 +68,7 @@ int main(int argc, char* argv[])
 			}).onFailure([](const char *error) {
 				std::cout << "Query error: " << error << std::endl;
 		});
-		*/
+		
 		//query("select * from bag;", mysql);
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }

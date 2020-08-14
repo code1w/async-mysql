@@ -8,6 +8,7 @@
 #include "dll_export.h"
 #include "mysql_result_impl.h"
 #include "mysql_query_result_field_impl.h"
+#include <cstdio>
 
 namespace gamesh { namespace mysql {
 
@@ -35,6 +36,7 @@ namespace gamesh { namespace mysql {
         }
         virtual ~QueryResultImpl()
         {
+            printf("~QueryResultImpl\n");
             mysql_free_result(_result);
         }
         const std::map<std::string, size_t>& fields() const override
